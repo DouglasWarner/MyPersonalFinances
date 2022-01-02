@@ -8,11 +8,12 @@ android {
     buildToolsVersion "32.0.0"
 
     defaultConfig {
-        applicationId "com.example.mypersonalfinances"
-        minSdkVersion 21
+        applicationId "com.douglas.mypersonalfinances"
+        minSdkVersion 25
         targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
+
+        versionCode 1 /* When the app is published this must be change after each release */
+        versionName "1.0.0" /* When the app is published this must be change after each release */
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,8 +32,8 @@ android {
         jvmTarget = '1.8'
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -60,4 +61,14 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // FIREBASE
+
+
+    // ROOM
+    implementation "androidx.room:room-runtime:2.4.0"
+    annotationProcessor "androidx.room:room-compiler:2.4.0"
+
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.9'
 }

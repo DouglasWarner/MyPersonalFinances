@@ -1,9 +1,8 @@
 package com.douglas.mypersonalfinances.ui.login
 
-/**
- * Authentication result : success (user details) or error message.
- */
+import com.douglas.mypersonalfinances.data.model.UserApp
+
 data class LoginResult(
-        val success: LoggedInUserView? = null,
-        val error: Int? = null
+    val error: Int? = null,
+    val success: UserApp? = null
 )

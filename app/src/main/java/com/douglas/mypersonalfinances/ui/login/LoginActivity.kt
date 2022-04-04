@@ -1,128 +1,140 @@
 package com.douglas.mypersonalfinances.ui.login
 
-import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.douglas.mypersonalfinances.R
+import com.douglas.mypersonalfinances.data.model.UserApp
+import com.douglas.mypersonalfinances.databinding.ActivityLoginBinding
+import com.douglas.mypersonalfinances.utils.afterTextChanged
+import kotlinx.coroutines.runBlocking
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    //region VARIABLES
+
+    private val loginViewModel: LoginViewModel by viewModels()
+    private lateinit var binding: ActivityLoginBinding
+
+    //endregion
+
+    //region LIFECYCLE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ActivityLoginBinding.inflate(layoutInflater).apply {
+            setContentView(root)
+        }
 
-        setContentView(R.layout.activity_login)
+        loginViewModel.loginForm.observe(this) { loginState ->
+            loginState?.let { state ->
+                // disable login button unless both username / password is valid
+                binding.login.isEnabled = state.isDataValid
 
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
-        val loading = findViewById<ProgressBar>(R.id.loading)
-
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-                .get(LoginViewModel::class.java)
-
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
-
-            // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
-
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
+                state.usernameError?.let { error ->
+                    binding.username.error = getString(error)
+                }
+                state.passwordError?.let { error ->
+                    binding.password.error = getString(error)
+                }
             }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
+        }
+
+        loginViewModel.loginResult.observe(this) { loginResult ->
+            loginResult?.let { result ->
+
+                binding.loading.visibility = View.GONE
+                result.error?.let { error ->
+                    showLoginFailed(error)
+                }
+                result.success?.let { success ->
+                    updateUiWithUser(success)
+                    //Complete and destroy login activity once successful
+                    //TODO go to the app and finish the login activity
+//                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
             }
-        })
+        }
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
-
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
-        })
-
-        username.afterTextChanged {
+        binding.username.afterTextChanged {
             loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
+                binding.username.text.toString(),
+                binding.password.text.toString()
             )
         }
 
-        password.apply {
+        binding.password.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                        username.text.toString(),
-                        password.text.toString()
+                    binding.username.text.toString(),
+                    binding.password.text.toString()
                 )
             }
 
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                                username.text.toString(),
-                                password.text.toString()
-                        )
+                        runBlocking {
+                            loginViewModel.login(
+                                binding.username.text.toString(),
+                                binding.password.text.toString()
+                            )
+                        }
                 }
                 false
             }
+        }
 
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+        binding.login.setOnClickListener {
+            binding.loading.visibility = View.VISIBLE
+            runBlocking {
+                loginViewModel.login(
+                    binding.username.text.toString(),
+                    binding.password.text.toString()
+                )
+
             }
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
+    override fun onResume() {
+        super.onResume()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+//endregion
+
+    //region PRIVATE METHODS
+
+    private fun updateUiWithUser(model: UserApp) {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
+        val displayName = model.name
         // TODO : initiate successful logged in experience
         Toast.makeText(
-                applicationContext,
-                "$welcome $displayName",
-                Toast.LENGTH_LONG
+            applicationContext,
+            "$welcome $displayName",
+            Toast.LENGTH_LONG
         ).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
-}
 
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
+    //endregion
 
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
 }

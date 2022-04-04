@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMonthHeader"
+        style="@style/MainOverViewTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llMonthIncome"
+        style="@style/MainOverViewMonthDonutChart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/llMonthExpense"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMonthHeader">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMainOverViewMonthIncome"
+            style="@style/MonthIncome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Income" />
+
+        <app.futured.donut.DonutProgressView
+            android:id="@+id/donutIncome"
+            style="@style/DefaultDonutChart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:donut_bgLineColor="@color/colorPrimaryVariant"
+            app:donut_gapAngle="0" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llMonthExpense"
+        style="@style/MainOverViewMonthDonutChart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/llMonthIncome"
+        app:layout_constraintTop_toBottomOf="@+id/tvMonthHeader">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMainOverViewMonthExpenses"
+            style="@style/MonthExpenses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Expenses" />
+
+        <app.futured.donut.DonutProgressView
+            android:id="@+id/donutExpenses"
+            style="@style/DefaultDonutChart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:donut_bgLineColor="@color/colorPrimary"
+            app:donut_gapAngle="180" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

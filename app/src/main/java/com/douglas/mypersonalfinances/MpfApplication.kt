@@ -1,20 +1,14 @@
 package com.douglas.mypersonalfinances
 
 import android.app.Application
-import android.content.Context
+import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 
+@HiltAndroidApp
 class MpfApplication : Application() {
 
-    val getContext: Context by lazy {
-        applicationContext
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-
-        //TODO set local db
-
-        //TODO set firebase
-
+    companion object {
+        val applicationScope = CoroutineScope(SupervisorJob())
     }
 }

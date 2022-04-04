@@ -3,23 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_mainoverview">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.douglas.mypersonalfinances.ui.home.HomeFragment"
+        android:id="@+id/navigation_mainoverview"
+        android:name="com.douglas.mypersonalfinances.ui.home.MainOverviewFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_mainoverview" />
 
     <fragment
-        android:id="@+id/navigation_summary"
-        android:name="com.douglas.mypersonalfinances.ui.dashboard.DashboardFragment"
-        android:label="@string/title_summary"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_monthoverview"
+        android:name="com.douglas.mypersonalfinances.ui.overviewTransaction.MonthOverviewFragment"
+        android:label="@string/title_MonthOverview"
+        tools:layout="@layout/fragment_monthoverview" />
 
     <fragment
-        android:id="@+id/navigation_transactions"
-        android:name="com.douglas.mypersonalfinances.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_day_transactions"
+        android:name="com.douglas.mypersonalfinances.ui.dayoverview.DayTransactionsFragment"
         android:label="@string/title_transaction"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_day_transactions" >
+        <action
+            android:id="@+id/action_navigation_day_transactions_to_manageTransaction"
+            app:destination="@id/manageMyTransaction" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageMyTransaction"
+        android:name="com.douglas.mypersonalfinances.ui.manageMyTransaction.ManageMyTransactionFragment"
+        android:label="fragment_manage_transaction"
+        tools:layout="@layout/fragment_manage_my_transaction" />
 </navigation>

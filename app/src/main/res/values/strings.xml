@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MyPersonalFinances</string>
-    <!-- Strings related to login -->
+    <!--     LOGIN -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -9,8 +9,29 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <!--    MAIN ACTIVITY -->
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_summary">Summary</string>
-    <string name="title_transaction">Transaction</string>
+    <string name="title_add">Add</string>
+    <string name="title_MonthOverview">Month</string>
+    <string name="title_transaction">Transactions</string>
+
+    <!--    MAIN OVER VIEW -->
+    <string name="tvYear_MAINOVERVIEW">2022</string>
+    <string name="tvSummary">Summary</string>
+    <string name="tvIncomes">Ahorros</string>
+    <string name="tvGastos">Gastos</string>
+
+    <!--    CURRENT DAY OVER VIEW -->
+    <string name="tabContentDescription">Current day overview</string>
+
+    <string name="btnAddTransaction">Añadir</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="success">OK</string>
+    <string name="btnSaveTransaction">Save</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="loading">loading</string>
+
 </resources>

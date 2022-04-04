@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "91446021768",
+    "project_id": "mypersonalfinances-56651",
+    "storage_bucket": "mypersonalfinances-56651.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91446021768:android:da5327d3fc57bed566193d",
+        "android_client_info": {
+          "package_name": "com.douglas.mypersonalfinances"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91446021768-iptoeo1idftc06nnvjcljk9849m1urb9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp975jTbagJIGTq5Akh6jmI3xI3xo2IWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91446021768-iptoeo1idftc06nnvjcljk9849m1urb9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

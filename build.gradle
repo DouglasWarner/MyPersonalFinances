@@ -1,13 +1,26 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.32"
+    ext {
+        // COMPOSE
+        compose_version = '1.1.1'
+        // KOTLIN
+        kotlin_version = "1.6.10"
+        // FIREBASE
+        firebase_version = "29.0.3"
+        // DAGGER HILT
+        daggerhilt_version = '2.41'
+    }
+
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.3"
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.10'
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$daggerhilt_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -17,10 +30,46 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    // ANDROID
+    splashScreen = '1.0.0-beta01'
+    kotlinCore = '1.7.0'
+    activityVersion = '1.5.0-alpha03'
+    appCompatVersion = '1.4.1'
+    materialVersion = '1.5.0'
+    annotation = '1.3.0'
+    constraintLayoutVersion = '2.1.3'
+    coroutines = '1.6.0'
+    lifecycleVersion = '2.4.1'
+    navigationVersion = '2.5.0-alpha03'
+    roomVersion = '2.4.2'
+    // DAGGER HILT
+    daggerHiltVersion = '2.38.1'
+    hiltCompiler = '1.0.0'
+    hiltNavigation = '1.0.0'
+    // PAGER ACCOMPANIST
+    accompanistVersion = '0.24.4-alpha'
+    // DATA STORE PREFERENCES
+    dataStorePreferencesVersion = '1.0.0'
+    // TESTING
+    junitVersion = '4.13.2'
+    androidxJunitVersion = '1.1.3'
+    coreTestingVersion = '2.1.0'
+    espressoVersion = '3.4.0'
+    // GSON
+    gson = '2.8.9'
+    // DONUT CHART
+    donutChartVersion = "2.2.1"
+    // JODA TIME
+    jodaTimeVersion = "2.10.12.2"
+    // RETROFIT
+    retrofitVersion = '2.9.0'
 }
